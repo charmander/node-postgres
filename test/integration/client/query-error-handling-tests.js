@@ -41,6 +41,42 @@ test('error during query execution', function() {
   }));
 });
 
+test('client return error when lost connection and try query', function() {
+  var client = new Client(helper.args);
+  client.connect(assert.success(function() {
+    var sleepQuery = 'select pg_sleep(20)';
+    var pidColName = 'procpid'
+    var queryColName = 'current_query';
+
+    helper.versionGTE(client, '9.2.0', assert.success(function(isGreater) {
+      if(isGreater) {
+        pidColName = 'pid';
+        queryColName = 'query';
+      }
+      var query1 = client.query(sleepQuery, function(err, result) {
+        assert(err);
+        assert.emits(client, 'error');
+        client.query(sleepQuery, assert.calls(function(err, result) {
+          assert(err);
+          assert(err.message === 'Connection terminated unexpectedly');
+        }));
+      });
+      setTimeout(function() {
+        var client2 = new Client(helper.args);
+        client2.connect(assert.success(function() {
+          var killIdleQuery = `SELECT pg_terminate_backend(${pidColName}) FROM pg_stat_activity WHERE ${queryColName} LIKE $1`;
+          client2.query(killIdleQuery, [sleepQuery], assert.calls(function(err, res) {
+            assert.ifError(err);
+            assert(res.rows.length > 0);
+            client2.end();
+            assert.emits(client2, 'end');
+          }));
+        }));
+      }, 300)
+    }));
+  }));
+});
+
 if (helper.config.native) {
   return
 }
