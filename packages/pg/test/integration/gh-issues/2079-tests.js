@@ -5,7 +5,7 @@ var assert = require('assert')
 const suite = new helper.Suite()
 
 // makes a backend server that responds with a non 'S' ssl response buffer
-let makeTerminatingBackend = (byte) => {
+let makeTerminatingBackend = (byte, callback) => {
   const { createServer } = require('net')
 
   const server = createServer((socket) => {
@@ -25,29 +25,32 @@ let makeTerminatingBackend = (byte) => {
     })
   })
 
-  server.listen()
-  const { port } = server.address()
-  return port
+  server.listen(0, '127.0.0.1', () => {
+    const { port } = server.address()
+    callback(port)
+  })
 }
 
 suite.test('SSL connection error allows event loop to exit', (done) => {
-  const port = makeTerminatingBackend('N')
-  const client = new helper.pg.Client({ ssl: 'require', port })
-  // since there was a connection error the client's socket should be closed
-  // and the event loop will have no refs and exit cleanly
-  client.connect((err) => {
-    assert(err instanceof Error)
-    done()
+  makeTerminatingBackend('N', (port) => {
+    const client = new helper.pg.Client({ host: '127.0.0.1', ssl: 'require', port })
+    // since there was a connection error the client's socket should be closed
+    // and the event loop will have no refs and exit cleanly
+    client.connect((err) => {
+      assert(err instanceof Error)
+      done()
+    })
   })
 })
 
 suite.test('Non "S" response code allows event loop to exit', (done) => {
-  const port = makeTerminatingBackend('X')
-  const client = new helper.pg.Client({ ssl: 'require', port })
-  // since there was a connection error the client's socket should be closed
-  // and the event loop will have no refs and exit cleanly
-  client.connect((err) => {
-    assert(err instanceof Error)
-    done()
+  makeTerminatingBackend('X', (port) => {
+    const client = new helper.pg.Client({ host: '127.0.0.1', ssl: 'require', port })
+    // since there was a connection error the client's socket should be closed
+    // and the event loop will have no refs and exit cleanly
+    client.connect((err) => {
+      assert(err instanceof Error)
+      done()
+    })
   })
 })
