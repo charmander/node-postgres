@@ -13,25 +13,26 @@ jobs:
           - erbium-alpine3.12
           - 13.6-alpine3.11
           - 14-alpine3.12
-        postgres: [10]
+        postgres:
+          - ghcr.io/charmander/pg-test-postgres:10
         include:
           - node: 14-alpine3.12
-            postgres: 9.6
+            postgres: ghcr.io/charmander/pg-test-postgres:9.6
           - node: 14-alpine3.12
-            postgres: 9.5
+            postgres: ghcr.io/charmander/pg-test-postgres:9.5
           - node: 14-alpine3.12
-            postgres: 9.4
+            postgres: ghcr.io/charmander/pg-test-postgres:9.4
           - node: 14-alpine3.12
-            postgres: 9.3
+            postgres: ghcr.io/charmander/pg-test-postgres:9.3
           - node: 14-alpine3.12
-            postgres: 9.2
+            postgres: ghcr.io/charmander/pg-test-postgres:9.2
 
     container:
       image: docker.io/library/node:${{ matrix.node }}
 
     services:
       db:
-        image: docker.io/library/postgres:${{ matrix.postgres }}
+        image: ${{ matrix.postgres }}
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
 
@@ -43,15 +44,6 @@ jobs:
           apk add --update \
             git make postgresql-client \
             g++ libc-dev postgresql-dev python3
-
-      - name: Configure PostgreSQL SSL
-        run: |
-          psql -h db -U postgres -v ON_ERROR_STOP=1 <<'END'
-            ALTER SYSTEM SET ssl TO on;
-            ALTER SYSTEM SET ssl_cert_file TO '/etc/ssl/certs/ssl-cert-snakeoil.pem';
-            ALTER SYSTEM SET ssl_key_file TO '/etc/ssl/private/ssl-cert-snakeoil.key';
-            SELECT pg_reload_conf();
-          END
 
       - name: Install Node dependencies
         run: yarn install
