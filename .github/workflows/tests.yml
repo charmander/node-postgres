@@ -39,11 +39,28 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache system dependencies
+        uses: actions/cache@v2
+        with:
+          path: /var/cache/apk
+          key: cache-${{ runner.os }}-tests-apk-${{ hashFiles('.github/workflows/tests.yml') }}
+          restore-keys: |
+            cache-${{ runner.os }}-tests-apk-
+
       - name: Install system dependencies
         run: |
           apk add --update \
+            tar \
             git make postgresql-client \
             clang libc-dev g++ postgresql-dev python3
+
+      - name: Cache Node dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/yarn
+          key: cache-${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', '**/package.json') }}
+          restore-keys: |
+            cache-${{ runner.os }}-node-
 
       - name: Install Node dependencies
         run: yarn install
