@@ -1,0 +1,22 @@
+name: Lint
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    container:
+      image: docker.io/library/node:14-alpine
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install system dependencies
+        run: apk add --update git
+
+      - name: Install Node dependencies
+        run: yarn install
+
+      - name: Lint
+        run: yarn lint
