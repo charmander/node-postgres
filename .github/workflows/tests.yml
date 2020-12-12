@@ -43,7 +43,7 @@ jobs:
         run: |
           apk add --update \
             git make postgresql-client \
-            g++ libc-dev postgresql-dev python3
+            clang libc-dev g++ postgresql-dev python3
 
       - name: Install Node dependencies
         run: yarn install
