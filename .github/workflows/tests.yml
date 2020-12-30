@@ -27,7 +27,7 @@ jobs:
             postgres: ghcr.io/charmander/pg-test-postgres:9.4
           - node: 14-alpine3.12
             postgres: ghcr.io/charmander/pg-test-postgres:9.3
-          - node: 14-alpine3.12
+          - node: 8-alpine3.11
             postgres: ghcr.io/charmander/pg-test-postgres:9.2
 
     container:
