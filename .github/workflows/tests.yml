@@ -80,3 +80,16 @@ jobs:
           PGHOST: db
           PGUSER: postgres
           PGDATABASE: postgres
+
+      - name: Test password authentication
+        run: yarn test
+        env:
+          CC: clang
+          CXX: clang++
+          npm_config_clang: 1
+          PGHOST: db
+          PGUSER: postgres_password
+          PGDATABASE: postgres
+          PGPASSWORD: test-password
+          SCRAM_TEST_PGUSER: scram_test
+          SCRAM_TEST_PGPASSWORD: test4scram
