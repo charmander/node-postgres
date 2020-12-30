@@ -96,6 +96,19 @@ jobs:
           PGPASSWORD: test-password
           SCRAM_TEST_PGUSER: scram_test
           SCRAM_TEST_PGPASSWORD: test4scram
+        if: ${{ !contains(matrix.postgres, '9.') }}
+
+      - name: Test password authentication (SCRAM unsupported)
+        run: yarn test
+        env:
+          CC: clang
+          CXX: clang++
+          npm_config_clang: 1
+          PGHOST: db
+          PGUSER: postgres_password
+          PGDATABASE: postgres
+          PGPASSWORD: test-password
+        if: ${{ contains(matrix.postgres, '9.') }}
 
       - name: Test client certificate authentication
         run: |
@@ -116,3 +129,4 @@ jobs:
           PGSSLCERT: test/tls/test-client.crt
           PGSSLKEY: test/tls/test-client.key
           PG_CLIENT_CERT_TEST: 1
+        if: ${{ !contains(matrix.postgres, '9.2') }}
