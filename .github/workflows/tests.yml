@@ -93,3 +93,23 @@ jobs:
           PGPASSWORD: test-password
           SCRAM_TEST_PGUSER: scram_test
           SCRAM_TEST_PGPASSWORD: test4scram
+
+      - name: Test client certificate authentication
+        run: |
+          cd packages/pg
+          chmod go= test/tls/test-client.key
+          node test/integration/connection-pool/tls-tests.js
+          npm install --no-save pg-native
+          node test/integration/connection-pool/tls-tests.js native
+        env:
+          CC: clang
+          CXX: clang++
+          npm_config_clang: 1
+          PGHOST: db
+          PGUSER: postgres
+          PGDATABASE: postgres
+          PGSSLMODE: verify-full
+          PGSSLROOTCERT: test/tls/test-server-ca.crt
+          PGSSLCERT: test/tls/test-client.crt
+          PGSSLKEY: test/tls/test-client.key
+          PG_CLIENT_CERT_TEST: 1
