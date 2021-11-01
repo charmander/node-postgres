@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: docker.io/library/node:14-alpine
+      image: docker.io/library/node:fermium-alpine3.14
 
     steps:
       - uses: actions/checkout@v2

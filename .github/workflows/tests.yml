@@ -10,22 +10,27 @@ jobs:
       matrix:
         node:
           - dubnium-alpine3.11
-          - erbium-alpine3.12
-          # node 13.7 seems to have changed behavior of async iterators exiting early on streams
-          # if 13.8 still has this problem when it comes down I'll talk to the node team about the change
-          # in the mean time...peg to 13.6
-          - 13.6-alpine3.11
-          - 14-alpine3.12
+          - erbium-alpine3.14
+          - fermium-alpine3.14
+          - 17-alpine3.14
         postgres:
-          - ghcr.io/charmander/pg-test-postgres:10
+          - ghcr.io/charmander/pg-test-postgres:14
         include:
-          - node: 14-alpine3.12
+          - node: fermium-alpine3.14
+            postgres: ghcr.io/charmander/pg-test-postgres:13
+          - node: fermium-alpine3.14
+            postgres: ghcr.io/charmander/pg-test-postgres:12
+          - node: fermium-alpine3.14
+            postgres: ghcr.io/charmander/pg-test-postgres:11
+          - node: fermium-alpine3.14
+            postgres: ghcr.io/charmander/pg-test-postgres:10
+          - node: fermium-alpine3.14
             postgres: ghcr.io/charmander/pg-test-postgres:9.6
-          - node: 14-alpine3.12
+          - node: fermium-alpine3.14
             postgres: ghcr.io/charmander/pg-test-postgres:9.5
-          - node: 14-alpine3.12
+          - node: fermium-alpine3.14
             postgres: ghcr.io/charmander/pg-test-postgres:9.4
-          - node: 14-alpine3.12
+          - node: fermium-alpine3.14
             postgres: ghcr.io/charmander/pg-test-postgres:9.3
           - node: 8-alpine3.11
             postgres: ghcr.io/charmander/pg-test-postgres:9.2
