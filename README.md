@@ -1,7 +1,6 @@
 # node-postgres
 
 [![Build Status](https://github.com/brianc/node-postgres/workflows/Node.js%20CI/badge.svg)](https://github.com/brianc/node-postgres/actions?query=workflow%3A%22Node.js+CI%22)
-[![Dependency Status](https://david-dm.org/brianc/node-postgres.svg?path=packages/pg)](https://david-dm.org/brianc/node-postgres?path=packages/pg)
 <span class="badge-npmversion"><a href="https://npmjs.org/package/pg" title="View this project on NPM"><img src="https://img.shields.io/npm/v/pg.svg" alt="NPM version" /></a></span>
 <span class="badge-npmdownloads"><a href="https://npmjs.org/package/pg" title="View this project on NPM"><img src="https://img.shields.io/npm/dm/pg.svg" alt="NPM downloads" /></a></span>
 
@@ -23,6 +22,8 @@ This repo is a monorepo which contains the core [pg](https://github.com/brianc/n
 Each package in this repo should have its own readme more focused on how to develop/contribute. For overall documentation on the project and the related modules managed by this repo please see:
 
 ### :star: [Documentation](https://node-postgres.com) :star:
+
+The source repo for the documentation is https://github.com/brianc/node-postgres-docs.
 
 ### Features
 
@@ -57,13 +58,16 @@ You can also follow me [@briancarlson](https://twitter.com/briancarlson) if that
 node-postgres's continued development has been made possible in part by generous finanical support from [the community](https://github.com/brianc/node-postgres/blob/master/SPONSORS.md) and these featured sponsors:
 
 <div align="center">
-<a href="https://crate.io" target="_blank">
-  <img height="80" src="https://node-postgres.com/crate-io.png" />
-</a>
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAABCAQAAAB0m0auAAAADElEQVR42mNkIBIAAABSAAI2VLqiAAAAAElFTkSuQmCC" />
-<a href="https://www.eaze.com" target="_blank">
-  <img height="80" src="https://node-postgres.com/eaze.png" />
-</a>
+  <p>
+    <a href="https://crate.io" target="_blank">
+      <img height="80" src="https://node-postgres.com/crate-io.png" />
+    </a>
+  </p>
+  <p>
+    <a href="https://www.eaze.com" target="_blank">
+      <img height="80" src="https://node-postgres.com/eaze.png" />
+    </a>
+  </p>
 </div>
 
 If you or your company are benefiting from node-postgres and would like to help keep the project financially sustainable [please consider supporting](https://github.com/sponsors/brianc) its development.

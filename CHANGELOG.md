@@ -4,6 +4,22 @@ For richer information consult the commit log on github with referenced pull req
 
 We do not include break-fix version release in this file.
 
+### pg@8.7.0
+
+- Add optional config to [pool](https://github.com/brianc/node-postgres/pull/2568) to allow process to exit if pool is idle.
+
+### pg-cursor@2.7.0
+
+- Convert to [es6 class](https://github.com/brianc/node-postgres/pull/2553)
+- Add support for promises [to cursor methods](https://github.com/brianc/node-postgres/pull/2554)
+
+### pg@8.6.0
+
+- Better [SASL](https://github.com/brianc/node-postgres/pull/2436) error messages & more validation on bad configuration.
+- Export [DatabaseError](https://github.com/brianc/node-postgres/pull/2445).
+- Add [ParameterDescription](https://github.com/brianc/node-postgres/pull/2464) support to protocol parsing.
+- Fix typescript [typedefs](https://github.com/brianc/node-postgres/pull/2490) with `--isolatedModules`.
+
 ### pg-query-stream@4.0.0
 
 - Library has been [converted](https://github.com/brianc/node-postgres/pull/2376) to Typescript. The behavior is identical, but there could be subtle breaking changes due to class names changing or other small inconsistencies introduced by the conversion.
@@ -18,7 +34,7 @@ We do not include break-fix version release in this file.
 
 - Switch to optional peer dependencies & remove [semver](https://github.com/brianc/node-postgres/commit/a02dfac5ad2e2abf0dc3a9817f953938acdc19b1) package which has been a small thorn in the side of a few users.
 - Export `DatabaseError` from [pg-protocol](https://github.com/brianc/node-postgres/commit/58258430d52ee446721cc3e6611e26f8bcaa67f5).
-- Add support for `ssl-mode` in the [connection string](https://github.com/brianc/node-postgres/commit/6be3b9022f83efc721596cc41165afaa07bfceb0).
+- Add support for `sslmode` in the [connection string](https://github.com/brianc/node-postgres/commit/6be3b9022f83efc721596cc41165afaa07bfceb0).
 
 ### pg@8.3.0
 
