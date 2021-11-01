@@ -9,31 +9,31 @@ jobs:
     strategy:
       matrix:
         node:
-          - dubnium-alpine3.11
-          - erbium-alpine3.14
+          # - dubnium-alpine3.11
+          # - erbium-alpine3.14
           - fermium-alpine3.14
-          - 17-alpine3.14
+          # - 17-alpine3.14
         postgres:
           - ghcr.io/charmander/pg-test-postgres:14
-        include:
-          - node: fermium-alpine3.14
-            postgres: ghcr.io/charmander/pg-test-postgres:13
-          - node: fermium-alpine3.14
-            postgres: ghcr.io/charmander/pg-test-postgres:12
-          - node: fermium-alpine3.14
-            postgres: ghcr.io/charmander/pg-test-postgres:11
-          - node: fermium-alpine3.14
-            postgres: ghcr.io/charmander/pg-test-postgres:10
-          - node: fermium-alpine3.14
-            postgres: ghcr.io/charmander/pg-test-postgres:9.6
-          - node: fermium-alpine3.14
-            postgres: ghcr.io/charmander/pg-test-postgres:9.5
-          - node: fermium-alpine3.14
-            postgres: ghcr.io/charmander/pg-test-postgres:9.4
-          - node: fermium-alpine3.14
-            postgres: ghcr.io/charmander/pg-test-postgres:9.3
-          - node: 8-alpine3.11
-            postgres: ghcr.io/charmander/pg-test-postgres:9.2
+        #include:
+        #  - node: fermium-alpine3.14
+        #    postgres: ghcr.io/charmander/pg-test-postgres:13
+        #  - node: fermium-alpine3.14
+        #    postgres: ghcr.io/charmander/pg-test-postgres:12
+        #  - node: fermium-alpine3.14
+        #    postgres: ghcr.io/charmander/pg-test-postgres:11
+        #  - node: fermium-alpine3.14
+        #    postgres: ghcr.io/charmander/pg-test-postgres:10
+        #  - node: fermium-alpine3.14
+        #    postgres: ghcr.io/charmander/pg-test-postgres:9.6
+        #  - node: fermium-alpine3.14
+        #    postgres: ghcr.io/charmander/pg-test-postgres:9.5
+        #  - node: fermium-alpine3.14
+        #    postgres: ghcr.io/charmander/pg-test-postgres:9.4
+        #  - node: fermium-alpine3.14
+        #    postgres: ghcr.io/charmander/pg-test-postgres:9.3
+        #  - node: 8-alpine3.11
+        #    postgres: ghcr.io/charmander/pg-test-postgres:9.2
 
     container:
       image: docker.io/library/node:${{ matrix.node }}
